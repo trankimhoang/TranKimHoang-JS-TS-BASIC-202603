@@ -1,65 +1,95 @@
-//Abstract clas
-abstract clas ton tai trong TS - no la 1 class dang dang do - co 1 phan code , nhung co 1p han chua viet (
-abstrtact methods
-) class con hoan thanh phan con thieu
+## Abstract class
 
-//generic class la gi
-generic class cho phép mình viết 1 class duy nhất nhưng hoạt động đc với bất kì kiểu dữ liệu nào.
-gióng như khuôn bánh: 1 cái khuôn có thể làm bánh scola. báh trưng, bánh dâu.... chỉ cần thay nguyên liệu (T), khuôn giữ nguyên
+- `abstract class` tồn tại trong TypeScript.
+- Đây là một class “đang dang dở”:
+  - Có một phần code đã viết sẵn.
+  - Có một phần chưa viết, thường là `abstract method`.
+- Class con sẽ kế thừa và hoàn thành phần còn thiếu.
 
-//cú pháp
+## Generic class
+
+- Generic class cho phép viết một class duy nhất nhưng có thể hoạt động với nhiều kiểu dữ liệu khác nhau.
+- Giống như một khuôn bánh:
+  - Một cái khuôn có thể làm bánh socola, bánh chưng, bánh dâu,...
+  - Chỉ cần thay nguyên liệu (`T`), khuôn vẫn giữ nguyên.
+
+### Cú pháp
+
+```ts
 class ClassName<T>
+```
 
-T = Type Parameter (placehgolder)
-//generic constraints - giới hjanj kiểu đưco phép
+- `T` = Type Parameter, đóng vai trò như một placeholder.
+- Generic constraints dùng để giới hạn kiểu dữ liệu được phép truyền vào.
 
-//Composition va inhertance has - a va is -a
+## Composition và inheritance
 
-///
-is - a - la mot
-i
-nheritance (ke thua ) => class con la 1 loaij cua class cha -> ke thua moi thu
-//Cau hoi dat dra : X co la 1 Y ?? -> neu nghe ty nhin -> is -a
+### `is-a`
 
-Dog la mot ANIMAL -> Dog extends animal
-LoginPage la 1 BasePage -> loginpage extends thang BasePage
+- `is-a` nghĩa là “là một”.
+- Dùng với inheritance.
+- Class con là một loại của class cha và kế thừa từ class cha.
+- Câu hỏi cần đặt ra: `X có là một Y không?`
+  - Nếu nghe tự nhiên, có thể dùng quan hệ `is-a`.
 
-/// Has -a (co 1 )
-composition = class co 1 hoac su dun object khac -> chua ben torng nhu cong cu
+Ví dụ:
 
-Car La mot Dong co ko ????
-student co la 1 score ko ???
+```ts
+Dog is an Animal
+Dog extends Animal
+```
 
-CAR co 1 engine -< car chua engie ben trong
-student co 1 score > student co diem so
+```ts
+LoginPage is a BasePage
+LoginPage extends BasePage
+```
 
-computer co 1 cpu -> computer chua cpu
+### `has-a`
 
-//QUY TẮC OOP. ưu tiên dùng composition hơn inheritance, trừ khi quan hệ is-a thực sự rõ ràng
+- `has-a` nghĩa là “có một”.
+- Dùng với composition.
+- Một class có hoặc sử dụng object khác bên trong như một công cụ.
 
-Extends()
-Cứng nhắc - thằng con phải kế thừa hết các thuộc rtinhs và method từ cha (kể cả những thứ ko cần)
-1 cha duy nhất
-khó test (phải mock cả cha)
+Ví dụ:
 
-cha đổi -> con sợ
+- `Car` có một `Engine`.
+- `Student` có một `Score`.
+- `Computer` có một `CPU`.
 
-Composition
-linh hoạt chỉ chọn module nó cần
-nhiều module 1 lúc
-module đổi ko ảnh hưởng
-dễ test (mock từng module)
+## Quy tắc OOP
 
-Khi nào dùng kế thừa
-IS-A rõ ràng, ổn định
-pKo có nhu cầu da kế thừa
+- Ưu tiên dùng composition hơn inheritance.
+- Chỉ dùng inheritance khi quan hệ `is-a` thật sự rõ ràng.
 
-khi nao dùng compo
+### Inheritance
 
-has - a
-cần linh hoạtm muón tải dụng module độc lập
+- Cứng nhắc.
+- Class con phải kế thừa tất cả thuộc tính và method từ class cha, kể cả những thứ không cần.
+- Chỉ kế thừa được từ một class cha.
+- Khó test hơn vì phải mock cả class cha.
+- Khi class cha thay đổi, class con dễ bị ảnh hưởng.
 
--> module các phần logc có khả năng tái sử dụng -> class và ịnect hau gọi composition từ đó
+### Composition
 
-Dependency Injection
-(fixture)
+- Linh hoạt hơn.
+- Chỉ chọn module cần dùng.
+- Có thể dùng nhiều module cùng lúc.
+- Module thay đổi ít ảnh hưởng đến class sử dụng nó.
+- Dễ test hơn vì có thể mock từng module riêng.
+
+## Khi nào dùng inheritance?
+
+- Quan hệ `is-a` rõ ràng và ổn định.
+- Không có nhu cầu đa kế thừa.
+
+## Khi nào dùng composition?
+
+- Quan hệ `has-a`.
+- Cần sự linh hoạt.
+- Muốn tái sử dụng các module độc lập.
+- Tách logic thành các module/class có khả năng tái sử dụng, sau đó inject hoặc gọi thông qua composition.
+
+## Dependency Injection
+
+- Dependency Injection thường được dùng chung với composition.
+- Trong Playwright, fixture là một ví dụ phổ biến của Dependency Injection.
